@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import postRoutes from "./routes/posts.js";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 
@@ -12,8 +14,11 @@ app.use(cors());
 
 app.use("/posts", postRoutes);
 
-const CONNECTION_URL =
-  "mongodb+srv://LaMinKoKo:Aa123123123$@cluster0.rcu6kvk.mongodb.net/?retryWrites=true&w=majority";
+app.use("/", (req, res) => {
+  res.json("APP is running");
+});
+
+const CONNECTION_URL = `mongodb+srv://${process.env.USERNAME_DB}:${process.env.PASSWORD_DB}@cluster0.rcu6kvk.mongodb.net/?retryWrites=true&w=majority`;
 const PORT = process.env.PORT || 5000;
 
 mongoose
